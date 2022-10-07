@@ -145,17 +145,21 @@ if utils.executable("ltex-ls") then
 }
 end
 
-if utils.executable("clangd") then
-  lspconfig.clangd.setup {
-    on_attach = custom_attach,
-    capabilities = capabilities,
-    filetypes = { "c", "cpp", "cc" },
-    flags = {
-      debounce_text_changes = 500,
-    },
-  }
+if utils.executable("ccls") then
+  lspconfig.ccls.setup {
+    filetypes = { "c", "cpp", "objc", "objcpp", "opencl" },
+        -- root_dir = function(fname)
+        --     return util.root_pattern("compile_commands.json", "compile_flags.txt", ".git")(fname)
+        --         or util.find_git_ancestor(fname)
+        -- end,
+        init_options = { cache = {
+            directory = vim.env.XDG_CACHE_HOME .. "/ccls/",
+        } },
+        on_attach = custom_attach,
+        capabilities = capabilities,
+      }
 else
-  vim.notify("clangd not found!", vim.log.levels.WARN, { title = "Nvim-config" })
+  vim.notify("ccls not found!", vim.log.levels.WARN, { title = "Nvim-config" })
 end
 
 -- set up vim-language-server
