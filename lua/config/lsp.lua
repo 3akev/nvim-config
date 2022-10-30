@@ -109,7 +109,7 @@ if utils.executable("pylsp") then
           pycodestyle = { enabled = false },
           jedi_completion = { fuzzy = true },
           pyls_isort = { enabled = true },
-          pylsp_mypy = { enabled = true },
+          pylsp_mypy = { enabled = false },
         },
       },
     },
@@ -234,6 +234,23 @@ diagnostic.config {
 --   signs = true,
 --   update_in_insert = false,
 -- })
+
+if utils.executable("godot") then
+  lspconfig.gdscript.setup{
+      on_attach = function (client)
+          local _notify = client.notify
+          client.notify = function (method, params)
+              if method == 'textDocument/didClose' then
+                  return
+              end
+              _notify(method, params)
+          end
+      end,
+      flags = {
+        debounce_text_changes = 150,
+      }
+    }
+end
 
 -- Change border of documentation hover window, See https://github.com/neovim/neovim/pull/13998.
 lsp.handlers["textDocument/hover"] = lsp.with(vim.lsp.handlers.hover, {
