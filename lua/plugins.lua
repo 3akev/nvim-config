@@ -369,6 +369,12 @@ packer.startup {
 
     -- godot support
     use "habamax/vim-godot"
+
+    -- sql completion
+    -- use "vim-scripts/dbext.vim"
+    -- use 'nanotee/sqls.nvim'
+    use 'tpope/vim-dadbod'
+    use 'kristijanhusak/vim-dadbod-ui'
   end,
   config = {
     max_jobs = 16,

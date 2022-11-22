@@ -72,4 +72,4 @@ vim.g.loaded_matchit = 1
 vim.g.loaded_matchparen = 1
 
 -- Disable sql omni completion, it is broken.
-vim.g.loaded_sql_completion = 1
+-- vim.g.loaded_sql_completion = 1

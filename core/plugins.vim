@@ -156,6 +156,7 @@ let g:neoformat_c_clangformat = {
 
 let g:neoformat_enabled_cpp = ['clangformat']
 let g:neoformat_enabled_c = ['clangformat']
+let g:neoformat_enabled_sql = ['pg_format']
 
 """""""""""""""""""""""""vim-markdown settings"""""""""""""""""""
 " Disable header folding
@@ -393,3 +394,4 @@ endfunction
 
 """"""""""""""""""""""""""""""vim-auto-save settings""""""""""""""""""""""""""""""
 let g:auto_save = 1  " enable AutoSave on Vim startup
+
