@@ -3,6 +3,8 @@ local api = vim.api
 
 local utils = require('utils')
 
+vim.env.XDG_CACHE_HOME = "/home/ala/.cache/"
+
 -- Inspect something
 function _G.inspect(item)
   vim.pretty_print(item)

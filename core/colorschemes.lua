@@ -17,7 +17,7 @@ M.colorscheme2dir = {
   kanagawa = "kanagawa.nvim",
   catppuccin = "catppuccin",
   rose_pine = "rose-pine",
-  onedarkpro = "onedarkpro.nvim",
+  -- onedarkpro = "onedarkpro.nvim",
   monokai = "monokai.nvim",
   material = "material.nvim",
 }
@@ -104,10 +104,10 @@ M.rose_pine = function()
   vim.cmd('colorscheme rose-pine')
 end
 
-M.onedarkpro = function()
-  -- set colorscheme after options
-  vim.cmd('colorscheme onedark_vivid')
-end
+-- M.onedarkpro = function()
+--  -- set colorscheme after options
+--  vim.cmd('colorscheme onedark_vivid')
+-- end
 
 M.monokai = function()
   vim.cmd('colorscheme monokai_pro')
