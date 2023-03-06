@@ -235,6 +235,11 @@ if executable('latex')
     autocmd FileType tex nmap <buffer> <F9> <plug>(vimtex-compile)
   augroup END
 
+  set conceallevel=1
+  let g:tex_conceal='abdmg'
+  let g:vimtex_view_general_viewer = 'okular'
+  let g:vimtex_view_general_options = '--unique file:@pdf\#src:@line@tex'
+
   let g:vimtex_compiler_latexmk = {
         \ 'build_dir' : 'build',
         \ }
