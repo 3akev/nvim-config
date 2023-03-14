@@ -19,7 +19,7 @@ local custom_attach = function(client, bufnr)
   map("n", "<C-]>", vim.lsp.buf.definition)
   map("n", "K", vim.lsp.buf.hover)
   map("n", "<C-k>", vim.lsp.buf.signature_help)
-  map("n", "<space>rn", vim.lsp.buf.rename, { desc = "varialbe rename" })
+  map("n", "<space>rn", vim.lsp.buf.rename, { desc = "variable rename" })
   map("n", "gr", vim.lsp.buf.references, { desc = "show references" })
   map("n", "[d", diagnostic.goto_prev, { desc = "previous diagnostic" })
   map("n", "]d", diagnostic.goto_next, { desc = "next diagnostic" })
@@ -122,29 +122,6 @@ else
   vim.notify("pylsp not found!", vim.log.levels.WARN, { title = "Nvim-config" })
 end
 
--- if utils.executable('pyright') then
---   lspconfig.pyright.setup{
---     on_attach = custom_attach,
---     capabilities = capabilities
---   }
--- else
---   vim.notify("pyright not found!", vim.log.levels.WARN, {title = 'Nvim-config'})
--- end
-
-if utils.executable("ltex-ls") then
-  lspconfig.ltex.setup {
-    on_attach = custom_attach,
-    cmd = { "ltex-ls" },
-    filetypes = { "text", "plaintex", "tex", "markdown" },
-    settings = {
-      ltex = {
-        language = "en"
-      },
-    },
-    flags = { debounce_text_changes = 300 },
-}
-end
-
 if utils.executable("clangd") then
   lspconfig.clangd.setup {
     on_attach = custom_attach,
@@ -156,54 +133,10 @@ if utils.executable("clangd") then
   }
 end
 
--- set up vim-language-server
--- if utils.executable("vim-language-server") then
---   lspconfig.vimls.setup {
---     on_attach = custom_attach,
---     flags = {
---       debounce_text_changes = 500,
---     },
---     capabilities = capabilities,
---   }
--- else
---   vim.notify("vim-language-server not found!", vim.log.levels.WARN, { title = "Nvim-config" })
--- end
-
 -- set up bash-language-server
 if utils.executable("bash-language-server") then
   lspconfig.bashls.setup {
     on_attach = custom_attach,
-    capabilities = capabilities,
-  }
-end
-
-if utils.executable("lua-language-server") then
-  -- settings for lua-language-server can be found on https://github.com/LuaLS/lua-language-server/wiki/Settings .
-  lspconfig.lua_ls.setup {
-    on_attach = custom_attach,
-    settings = {
-      Lua = {
-        runtime = {
-          -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
-          version = "LuaJIT",
-        },
-        diagnostics = {
-          -- Get the language server to recognize the `vim` global
-          globals = { "vim" },
-        },
-        workspace = {
-          -- Make the server aware of Neovim runtime files,
-          -- see also https://github.com/LuaLS/lua-language-server/wiki/Libraries#link-to-workspace .
-          -- Lua-dev.nvim also has similar settings for lua ls, https://github.com/folke/neodev.nvim/blob/main/lua/neodev/luals.lua .
-          library = {
-            fn.stdpath("data") .. "/site/pack/packer/opt/emmylua-nvim",
-            fn.stdpath("config"),
-          },
-          maxPreload = 2000,
-          preloadFileSize = 50000,
-        },
-      },
-    },
     capabilities = capabilities,
   }
 end
@@ -221,30 +154,6 @@ diagnostic.config {
   signs = true,
   severity_sort = true,
 }
-
--- lsp.handlers["textDocument/publishDiagnostics"] = lsp.with(lsp.diagnostic.on_publish_diagnostics, {
---   underline = false,
---   virtual_text = false,
---   signs = true,
---   update_in_insert = false,
--- })
-
-if utils.executable("godot") then
-  lspconfig.gdscript.setup{
-      on_attach = function (client)
-          local _notify = client.notify
-          client.notify = function (method, params)
-              if method == 'textDocument/didClose' then
-                  return
-              end
-              _notify(method, params)
-          end
-      end,
-      flags = {
-        debounce_text_changes = 150,
-      }
-    }
-end
 
 -- Change border of documentation hover window, See https://github.com/neovim/neovim/pull/13998.
 lsp.handlers["textDocument/hover"] = lsp.with(vim.lsp.handlers.hover, {

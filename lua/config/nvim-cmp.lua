@@ -32,7 +32,6 @@ cmp.setup {
   },
   sources = {
     { name = "nvim_lsp" }, -- For nvim-lsp
-    { name = "ultisnips" }, -- For ultisnips user.
     { name = "path" }, -- for path completion
     { name = "buffer", keyword_length = 2 }, -- for buffer word completion
     { name = "emoji", insert = true }, -- emoji completion
@@ -59,15 +58,6 @@ cmp.setup {
     },
   },
 }
-
-cmp.setup.filetype("tex", {
-  sources = {
-    { name = "ultisnips" }, -- For ultisnips user.
-    { name = "omni" },
-    { name = "buffer", keyword_length = 2 }, -- for buffer word completion
-    { name = "path" }, -- for path completion
-  },
-})
 
 --  see https://github.com/hrsh7th/nvim-cmp/wiki/Menu-Appearance#how-to-add-visual-studio-code-dark-theme-colors-to-the-menu
 vim.cmd([[
